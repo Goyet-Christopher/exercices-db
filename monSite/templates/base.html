@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="utf-8">
+   <title>{% block title %}Titre{% endblock title %}</title>
+   {% block styles %}
+   <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+   <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+<!--
+   <link rel="stylesheet" type="text/css" href="/static/admin/css/widgets.css">
+   <link rel="stylesheet" type="text/css" href="/static/admin/css/overrides.css">
+   <link rel="stylesheet" type="text/css" href="{% static 'admin/js/jsi18n.js' %}">
+-->   
+   <link rel="stylesheet" type="text/css" href="{% static 'monSite/mystyle.css' %}">
+   {% endblock styles %}
+   {% block headscripts %}
+   {% endblock headscripts %}
+</head>
+<body class=" app-monSite change-form">
+        {% block bodyscripts %}
+        {% endblock bodyscripts %}
+        {% block body %}
+        {% endblock body %}
+</body>
+</html>

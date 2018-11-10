@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+<!-- Container -->
+<div id="container">
+{% block container %}
+    {% block headers %}
+        
+    {% endblock headers %}
+    <!-- Content -->
+    <div id="content" class="colM">
+    {% block content %}
+        <h1>{% block content-title %}content-title{% endblock content-title %}</h1>
+        <div id="content-main">
+        {% block content-main %}
+        
+        {% endblock content-main %}
+        </div>
+    {% endblock content %}
+    <br class="clear" />
+    </div>
+    <!-- END Content -->
+{% endblock container %}
+</div>
+<div id="footer">
+{% block footer %}
+
+{% endblock footer %}
+</div>
+{% endblock body %}

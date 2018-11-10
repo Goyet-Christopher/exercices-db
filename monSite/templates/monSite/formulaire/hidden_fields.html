@@ -1,0 +1,13 @@
+{# Include the hidden fields #}
+{% for hidden in eno_form.hidden_fields %}
+    {{ hidden }}
+{% endfor %}
+
+
+{% if eno_form.non_field_errors %}
+<div class="alert alert-danger" role="alert">
+    {% for error in eno_form.non_field_errors %}
+        {{ error }}
+    {% endfor %}
+</div>
+{% endif %}

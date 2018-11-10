@@ -1,0 +1,16 @@
+<fieldset class="module">
+    <h2> Source </h2>
+    <button class="btn btn-success btn-sm" id="bt_add_sorte2" type="button" onclick="add_sorte('biblio')" >+</button>
+    {{ biblio_formset.management_form }}
+    <div id="formsetZone_biblio">
+        {% for f in biblio_formset %}
+        <div class="nsorte">
+            {{ f }}
+            <div class='btn btn-warning btn-sm bt_rm_sorte' style="display: inline" >
+                <button class="btn btn-success btn-sm" type="button" onclick="del_sorte(this, {{ forloop.counter0 }}, 'difficulte')">-</button>
+                <i class='glyphicon glyphicon-trash'></i>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</fieldset>

@@ -1,0 +1,13 @@
+{% extends "headers.html" %}
+
+{% block site-name %}Ajouter des énoncés{% endblock site-name %}
+
+{% block user-tools %}
+            Bienvenue,
+            <strong>USER</strong>.
+{% endblock user-tools %}
+
+{% block subtitle %}
+        Un sous titre : 
+        {% if resultat %} Votre message a bien été envoyé !{% endif %}
+{% endblock subtitle %}

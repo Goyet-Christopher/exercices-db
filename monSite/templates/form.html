@@ -1,0 +1,25 @@
+{% extends "body-container.html" %}
+
+{% block headers %}
+{% include 'monSite/headers.html' %}
+{% endblock headers %}
+
+{% block content-main %}
+{% block object-tools %}
+<ul class="object-tools">
+    <li>
+        <a href="" class="historylink">Historique</a>
+    </li>
+</ul>
+{% endblock object-tools %}
+<div id="my_form" class="my_form" >
+{% block my_form %}
+
+{% endblock my_form %}
+</div>
+<div id="outform" class="outform" >
+{% block outform %}
+
+{% endblock outform %}
+</div>
+{% endblock content-main %}

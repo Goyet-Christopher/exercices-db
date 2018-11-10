@@ -1,0 +1,11 @@
+{% load widget_tweaks %}
+
+{% for field in eno_form.latex_fields %}
+<div class="form-row field-{{ field.name }}">
+    <label for="{{ field.auto_id }}" {% if field.field.required %}class="required"{% endif %} >{{ field.label }}</label>
+    {{ field|add_class:"vLargeTextField" }}
+    {% for error in field.errors %}
+      <span class="help-block">{{ error }}</span>
+    {% endfor %}
+</div>
+{% endfor %}

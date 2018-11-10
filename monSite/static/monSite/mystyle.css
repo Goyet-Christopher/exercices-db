@@ -1,0 +1,209 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url("/static/monSite/icomoon.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+div.file_container {
+    position: relative;
+    float: left;
+    height: 150px;
+    width: 170px;
+    background: #f2f2f2;
+//    background: #000000;
+    border: 1px dashed #ccc;
+    padding: 0;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+}
+
+img.displayed {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+}
+
+.file_container input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+
+[class^="icon-"]{
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -1px;
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 14px;
+    font-size: 1.4rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-camera-plus:before {
+    content: "\e900";
+    line-height:150px;
+    text-align:center;
+    position:relative;
+    left: 10px;
+    font-size: 58px;
+    font-size: 5.8rem;
+}
+/*
+.icon-delete{
+    height: 20px;
+    transform: rotate(45deg);
+    position:absolute;
+    top:-10px;
+    right:-10px;
+    }
+.icon-delete::before{
+    content: "\e305";
+    font-size: 1.2em
+    border: 3px solid white;
+    border-radius: 50%;  
+    background: white;
+    text-shadow: -0px 0px 0px rgba(255,255,255,01); 
+}*/
+
+i.icon-delete{
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    margin: 0;
+    font-size: 28px;
+}
+.icon-delete .path1:before {
+    content: "\e707";
+    color: #272727;
+}
+.icon-delete .path2:before {
+    content: "\e708";
+    margin-left: -1em;
+    color: #fff;
+}
+
+p.uppercase{
+    //text-transform: uppercase;
+    width: 150px;
+    position:absolute;
+    text-align:center;
+}
+
+.hidden{
+    display:none;
+}
+
+.mts{
+    margin-top:10px;
+}
+
+.mrm {
+    margin-right: 20px;
+}
+
+.my-object-tools {
+    line-height: 20px;
+    list-style-type: square;
+    text-decoration: none;
+    border-radius: 15px;
+    color: #fff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 11px;
+//    font-weight: 400;
+    background: #999;
+    float: right;
+//    display: block;
+    margin-top: 30px;
+}
+
+.addlink {
+    background-image: url("/static/monSite/tooltag-add.svg");
+    background-repeat: no-repeat;
+    background-position: right 7px center;
+    padding-right: 26px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.my-object-tools:hover {
+    background: #447e9b;
+}
+
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	//z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+.modalDialogOpen {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.mDContent {
+    width: 50%;
+	//width: 400px;
+	max-height: 70%;
+	position: relative;
+	margin: 10% auto;
+	//display: block;
+	overflow: scroll;
+	//display: inline-block;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+
+
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.modalDialogClose { background: #00d9ff; }
+
+.errorblock{
+    color:red;
+    font-weight:bold;
+}

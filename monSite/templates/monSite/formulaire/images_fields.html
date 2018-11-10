@@ -1,0 +1,59 @@
+<fieldset class="module aligned ">
+    <h2> Images 
+        <div class="my-object-tools">
+                <div class="addlink" onclick="num=add_sorte('imageJoint');init_upimage(num-1);" >Ajouter</div>
+        </div>
+    </h2>
+    {{ imagesJoiture_formset.management_form }}
+    {{ image_formset.management_form }}
+    <button class="btn btn-success btn-sm" id="bt_add_sorte" type="button" onclick="num=add_sorte('imageJoint');init_upimage(num-1);" >+</button>
+    <div id="imageNameMessage" class="hidden">
+        <span class="errorblock">ATTENTION ! Vérifiez les noms des fichiers utilisés dans votre latex :</span>
+    </div>
+    {# image_formset.management_form #}
+    <aside class="pictures-list">
+    <div id="formsetZone_imageJoint">
+        {% for f in imagesJoiture_formset %}
+        <div class="nsorte">
+            <div class="hidden">
+            {{ f }}
+            </div>
+            {# f.ima_id|attr:"class:hidden" #}
+            <div class="file_container mrm mts" data-state="uploaded" >
+                <p class="uppercase">Photo</p>
+                <i class="icon-camera-plus icon-7x"></i>
+                {# image_formset.empty_form.ima_file #}
+                <img class="displayed" src="{{ f.instance.ima_id.ima_thumbnail.url }}" >
+                <i class="icon-delete"  onclick="del_sorte(this, {{ forloop.counter0 }}, 'imageJoint')">
+                    <span class="path1"></span><span class="path2"></span>
+                </i>
+                <div id="display-filename-{{ forloop.counter0 }}" >{{ f.instance.ima_id.ima_filename }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </aside>
+    {% for error in image_formset.errors %}
+        <span class="help-block">{{ error }}</span>
+    {% endfor %}
+    <div id="imageModal" class="modalDialog">
+        <div class="mDContent" >
+    		<h2>Images similaires détéctées</h2>
+    		<div class="mrm mts">
+    		    <p>Déjà dans la DB : </p>
+    		    <aside class="pictures-list">
+        		<div id="similarImages" >
+        		</div>
+        		</aside>
+    		</div>
+    		<div class="mrm mts" >
+    		  <button type="button" onclick='keepMyImage(this);' >Insister pour garder votre image ! </button>
+    		</div>
+    		<!--
+    		<i class="icon-delete" onclick='$id("imageModal").setAttribute("class", "modalDialog");' >
+               <span class="path1"></span><span class="path2"></span>
+            </i>
+            -->
+        </div>
+    </div>                      
+</fieldset>

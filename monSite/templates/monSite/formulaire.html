@@ -1,0 +1,59 @@
+{% extends "form.html" %}
+{% load widget_tweaks %}
+{% load myfilters %}
+
+{% block headscripts %}
+    {{ eno_form.media }}
+{% endblock headscripts %}
+
+{% block bodyscripts %}
+<script type='text/javascript' >
+{% include 'monSite/formulaire/scripts/base.js' %}
+{% include 'monSite/formulaire/scripts/images-handler.js' %}
+{% include 'monSite/formulaire/scripts/images-asyncr.js' %}
+{% include 'monSite/formulaire/scripts/presentation.js' with eno_form=eno_form %}
+</script>
+{% endblock bodyscripts %}
+
+{% block headers %}
+{% include 'monSite/formulaire/header.html' %}
+{% endblock headers %}
+
+{% block content-title %}Table énoncés{% endblock content-title %}
+
+{% block my_form %}
+<form method="post" enctype="multipart/form-data" >
+    {% csrf_token %}
+    
+    {% include 'monSite/formulaire/hidden_fields.html' %}
+    {% include 'monSite/formulaire/latex_fields.html' %}
+    {% include 'monSite/formulaire/compilation_fields.html'  %}
+    {% include 'monSite/formulaire/images_fields.html' %}
+    {% include 'monSite/formulaire/difficulte_fields.html' %}
+    {% include 'monSite/formulaire/biblio_fields.html' %}
+    {% include 'monSite/formulaire/sujets_fields.html' %}
+
+    
+    <fieldset class="module">
+    <h2> Autres </h2>
+    <p>Maintenir la touche cmd pour choisir plusieurs champs :</p>
+            {% for field in eno_form.others_fields %}
+                {{ field.label_tag }}
+                {{ field }}
+                {% for error in field.errors %}
+                <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            {% endfor %}              
+    </fieldset>
+    
+   
+    
+    <input type="submit" value="Envoyer" />
+</form>
+{% endblock my_form %}
+
+{% block outform %}        
+{% include 'monSite/formulaire/empty_imagesJoiture_formset.html' %}
+{% include 'monSite/formulaire/empty_difficulte_formset.html' %}
+{% include 'monSite/formulaire/empty_biblio_formset.html' %}
+{% endblock outform %}        

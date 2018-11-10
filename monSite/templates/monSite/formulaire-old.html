@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load myfilters %}
+{% block body %}
+
+{% block bodyscripts %}
+<script type='text/javascript' >
+{% include 'monSite/formulaire/scripts/base.js' %}
+{% include 'monSite/formulaire/scripts/images-handler.js' %}
+{% include 'monSite/formulaire/scripts/images-asyncr.js' %}
+{% include 'monSite/formulaire/scripts/presentation.js' with eno_form=eno_form %}
+</script>
+{% endblock bodyscripts %}
+
+
+{% block container %}
+<!-- Container -->
+<div id="container">
+    {% block header %}
+         {% include 'monSite/header.html' with resultat=resultat %}
+    {% endblock header %}
+    {% block content %}
+    <!-- Content -->
+    <div id="content" class="colM">
+        <h1>Table Enoncé</h1>
+        <div id="content-main">
+            <ul class="object-tools">
+                <li>
+                    <a href="" class="historylink">Historique</a>
+                </li>
+            </ul>
+        <div id="my_form">
+            <form method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                
+                {# Include the hidden fields #}
+                {% for hidden in eno_form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                
+                
+                {% if eno_form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in eno_form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+               
+                
+                <!-- latex_fields -->
+                <fieldset class="module aligned ">
+                {% include 'monSite/form_latex_fields.html' with eno_form=eno_form %}
+                {% include 'monSite/form_correction_fields.html' with eno_form=eno_form cor_form=cor_form %}
+                </fieldset>
+               
+                <fieldset class="module aligned ">
+                <h2> Informations sur la compilation du code Latex </h2>
+                    <div class="form-row {% for field in eno_form.boolean_fields %} field-{{ field.name }}{% endfor %}">
+                        {% for field in eno_form.boolean_fields %}
+                        <div class="fieldBox field-{{ field.name }}" >
+                            <label class="vCheckboxLabel inline {% if field.field.required %} required{% endif %}" for="{{ field.auto_id }}">{{ field.label }}
+                            </label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+                
+                <fieldset class="module">
+                <h2> Images 
+                    <div class="my-object-tools">
+                            <div class="addlink">Ajouter</div>
+                    </div>
+                
+                </h2>
+                    {{ imagesJoiture_formset.management_form }}
+                    {{ image_formset.management_form }}
+                    <button class="btn btn-success btn-sm" id="bt_add_sorte" type="button" onclick="num=add_sorte('imageJoint');init_upimage(num-1);" >+</button>
+                    {# image_formset.management_form #}
+                    <aside class="pictures-list">
+                    <div id="formsetZone_imageJoint">
+                            {% for f in imagesJoiture_formset %}
+                            <div class="nsorte">
+                                <div class="hidden">
+                                {{ f }}
+                                </div>
+                                {# f.ima_id|attr:"class:hidden" #}
+                                <div class="file_container mrm mts" data-state="uploaded" >
+                                    <p class="uppercase">Photo</p>
+                                    <i class="icon-camera-plus icon-7x"></i>
+                                    {# image_formset.empty_form.ima_file #}
+                                    <img class="displayed" src="{{ f.instance.ima_id.ima_thumbnail.url }}" >
+                                    <i class="icon-delete"  onclick="del_sorte(this, {{ forloop.counter0 }}, 'imageJoint')">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </div>
+                            </div>
+                            {% endfor %}
+                    </div>
+                    </aside>
+                    {% for error in image_formset.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                    <div id="imageModal" class="modalDialog">
+	                    <div>
+	                        <i class="icon-delete" onclick='$id("imageModal").setAttribute("class", "modalDialog");' >
+	                           <span class="path1"></span><span class="path2"></span>
+	                        </i>
+                    		<h2>Image similaire détéctée</h2>
+                    		<p>Vous pouvez choisir d'utiliser les images suivantes déjà dans la DB à la place de votre image :  </p>
+                    		<div id="similarImages" class="file_container mrm mts" data-state="uploaded" >
+                    		</div>
+                    	</div>
+                    </div>                      
+                </fieldset>
+                
+                <fieldset class="module aligned ">
+                <h2> Autres </h2>
+                        {% for field in eno_form.others_fields %}
+                            {{ field }}
+                            {% for error in field.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                        {% endfor %}
+                </fieldset>
+                
+                
+                
+                <button class="btn btn-success btn-sm" id="bt_add_sorte" type="button" onclick="add_sorte('difficulte')" >+</button>
+                <!-- Champs utilisés par le mécanisme formset de Django -->
+                {{ difficulte_formset.management_form }}
+                <!-- Les formulaires du formset -->
+                <div id="formsetZone_difficulte">
+                    {% for f in difficulte_formset %}
+                        <div class="nsorte">
+                            {{ f }}
+                            <div class='btn btn-warning btn-sm bt_rm_sorte' style="display: inline" >
+                                <button class="btn btn-success btn-sm" type="button" onclick="del_sorte(this, {{ forloop.counter0 }}, 'difficulte')">-</button>
+                                <i class='glyphicon glyphicon-trash'></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+        
+                
+                <br /> 
+                <button class="btn btn-success btn-sm" id="bt_add_sorte2" type="button" onclick="add_sorte('biblio')" >+</button>
+                <!-- Champs utilisés par le mécanisme formset de Django -->
+                {{ biblio_formset.management_form }}
+                <!-- Les formulaires du formset -->
+                <div id="formsetZone_biblio">
+                    {% for f in biblio_formset %}
+                        <div class="nsorte">
+                        {{ f }}
+                                <div class='btn btn-warning btn-sm bt_rm_sorte' style="display: inline" >
+                        <button class="btn btn-success btn-sm" type="button" onclick="del_sorte(this, {{ forloop.counter0 }}, 'difficulte')">-</button>
+                        <i class='glyphicon glyphicon-trash'></i>
+                </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Envoyer" />
+            </form>
+        </div>
+        
+        <!-- Element à copier pour un ajout au formset -->
+        <div style="display:none;">
+            <div id="eform_imageJoint" class="nsorte">
+                <div class="hidden">
+                    {{ imagesJoiture_formset.empty_form }}
+                </div>
+                <div class="file_container mrm mts" data-state="not_uploaded" >
+                    <p class="uppercase">Photo</p>
+                    <i class="icon-camera-plus icon-7x"></i>
+                    {{ image_formset.empty_form.ima_file }}
+                    <i class="icon-delete icon-3x"  onclick="del_sorte(this, __prefix__, 'imageJoint')">
+                        <span class="path1"></span><span class="path2"></span>
+                    </i>
+                </div>
+                <!-- <button class="btn btn-delete" type="button" onclick="del_sorte(this, __prefix__, 'imageJoint')">-</button> -->
+            </div>
+        </div>
+        
+        <div style="display:none;">
+            <div id="eform_difficulte" class="nsorte" >
+                {{ difficulte_formset.empty_form }}
+                <div class='btn btn-warning btn-sm bt_rm_sorte' style="display: inline" >
+                        <button class="btn btn-success btn-sm" type="button" onclick="del_sorte(this, __prefix__, 'difficulte')">-</button>
+                        <i class='glyphicon glyphicon-trash'></i>
+                </div>
+            </div>
+        </div>
+        <div style="display:none;">
+            <div id="eform_biblio" class="nsorte" >
+                {{ biblio_formset.empty_form }}
+                <div class='btn btn-warning btn-sm bt_rm_sorte' style="display: inline" >
+                        <button class="btn btn-success btn-sm" type="button" onclick="del_sorte(this, __prefix__, 'biblio')">-</button>
+                        <i class='glyphicon glyphicon-trash'></i>
+                </div>
+            </div>
+        </div>
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+    {% endblock %}
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+{% endblock %}
+
+
+{% endblock container %}

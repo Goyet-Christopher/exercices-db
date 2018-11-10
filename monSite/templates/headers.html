@@ -1,0 +1,24 @@
+{% block header %}
+<!-- Header -->
+<div id="header">
+    <div id="branding">
+        <h1 id="site-name">{% block site-name %}site-name{% endblock site-name %}</h1>
+    </div>
+    <div id="user-tools">
+        {% block user-tools %}
+        Bienvenue,
+        <strong>USER</strong>.
+        {% endblock user-tools %}
+    </div>
+</div>
+<!-- END Header -->
+{% endblock header %}
+{% block subheader %}
+    <!-- Sub_Header -->
+    <div class="breadcrumbs">
+        {% block subtitle %}
+        Subtitle
+        {% endblock subtitle %}
+    </div>
+    <!-- END Sub_Header -->
+{% endblock subheader %}

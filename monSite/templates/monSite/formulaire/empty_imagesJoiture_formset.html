@@ -1,0 +1,17 @@
+<div style="display:none;">
+    <div id="eform_imageJoint" class="nsorte">
+        <div class="hidden">
+            {{ imagesJoiture_formset.empty_form }}
+        </div>
+        <div class="file_container mrm mts" data-state="not_uploaded" >
+            <p class="uppercase">Photo</p>
+            <i class="icon-camera-plus icon-7x"></i>
+            {{ image_formset.empty_form.ima_file }}
+            <i class="icon-delete icon-3x"  onclick="del_sorte(this, __prefix__, 'imageJoint')">
+                <span class="path1"></span><span class="path2"></span>
+            </i>
+            <div id="display-filename-__prefix__" > </div>
+        </div>
+        <!-- <button class="btn btn-delete" type="button" onclick="del_sorte(this, __prefix__, 'imageJoint')">-</button> -->
+    </div>
+</div>

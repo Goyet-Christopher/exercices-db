@@ -1,0 +1,76 @@
+{% load widget_tweaks %}
+{% load myfilters %}
+
+<!-- correction_fields -->
+{% with cor_exist=eno_form.eno_cor.initial|is_notempty %}
+<div class="form-row {% for field in eno_form.correction_fields %} field-{{ field.name }}{% endfor %}">
+    <!-- cor_add -->
+    <div class="fieldBox field-{{ eno_form.cor_add.name }}">
+        <label for="{{ eno_form.cor_add.auto_id }}"
+                class="vCheckboxLabel inline {% if eno_form.cor_add.field.required %} required{% endif %}" >{{ eno_form.cor_add.label }}</label>
+        {% if cor_exist %}
+            {{ eno_form.cor_add|attr:"onclick:show_hide_corr(this, 'div-activaitor-new')"|attr:"checked" }}
+        {% else %}
+            {{ eno_form.cor_add|attr:"onclick:show_hide_corr(this, 'div-activaitor-new')" }}
+        {% endif %}
+        {% for error in eno_form.cor_add.errors %}
+        <span class="help-block">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <!-- cor_new + cor_latex or ... -->
+    <div id="div-activaitor-new" class="fieldBox"
+        {% if not cor_exist %}
+            style='display:none'
+        {% endif %} 
+    >
+        <div class="fieldBox">
+            <!-- cor_new -->
+            <div class="fieldBox field-{{ eno_form.cor_new.name }}">
+                <ul id="{{ eno_form.cor_new.auto_id }}">
+                {% for choice in eno_form.cor_new.field.choices %}
+                <li>
+                    <input name='{{ eno_form.cor_new.name }}' 
+                            id='{{ eno_form.cor_new.auto_id }}_{{ forloop.counter0 }}' 
+                            type='radio'
+                            value='{{ choice.0 }}'
+                    {% if cor_exist %}
+                        {% if choice.0 == "False" %} checked='checked' 
+                        {% endif %}
+                    {% else %}
+                        {% if choice.0 == "True" %} checked='checked' 
+                        {% endif %}
+                    {% endif %} 
+                            onclick='radio_onclick({{ forloop.counter0 }});'
+                    />
+                    <label for='{{ eno_form.cor_new.auto_id }}_{{ forloop.counter0 }}'>{{ choice.1 }}</label>
+                </li>
+                {% endfor %}
+                </ul>
+            </div>
+            <!--  cor_form -->
+            <div id="div-activaitor-0" class="fieldBox field-{{ cor_form.cor_latex.name }}"
+                    {% if cor_exist %}
+                        style='display:none' 
+                    {% endif %}
+           >
+                {{ cor_form.cor_latex.label_tag }}
+            </div>
+            <!-- or ... -->
+            <div id="div-activaitor-1" class="fieldBox field-{{ eno_form.eno_cor.name }}"
+                    {% if not cor_exist %}
+                        style='display:none' 
+                    {% endif %} 
+            >
+                {{ eno_form.eno_cor.label_tag }}
+                {{ eno_form.eno_cor }}
+            </div>
+        </div>
+        <div>
+        {{ cor_form.cor_latex|add_class:"vLargeTextField" }}
+        {% for error in cor_form.errors %}
+        <span class="help-block">{{ error }}</span>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endwith %}
